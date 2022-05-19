@@ -1,0 +1,30 @@
+﻿@model List<StudentTracker.Model.Student>
+
+<table style="margin-top: 20px;" class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>JMBAG</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp asp-route-studentId="@item.StudentId">@item.FullName</a>
+                </td>
+                <td>@item.Address</td>
+                <td>@item.Phone</td>
+                <td>@item.Jmbag</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.StudentId">EDIT</a>
+                    <a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.StudentId">REMOVE</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model List<StudentTracker.Model.Class>
+
+<h4>Your classes</h4>
+<hr/>
+
+<div class="container">
+    <div class="row justify-content-start">
+        <div class="col-4 mb-3">
+            <div class="card h-100 border-primary mb-3">
+                <div class="card-body text-dark align-items-center justify-content-center d-flex">
+                    <div style="min-width:80%">
+                        <a class="btn btn-primary" asp-controller="Class" asp-action="AddClass" asp-route-professorId="@ViewBag.professorId" role="button" style="width:100%">Add class</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="col-4 mb-3">
+                <div class="card h-100 border-primary mb-3">
+                    <h6 class="card-header bg-transparent border-primary">@item.Name</h6>
+                    <div class="card-body text-dark">
+                        <p class="card-title">Semester: @item.Semester.</p>
+                        @if (item.Students != null && item.Students.Any())
+                        {
+                            <p class="card-title">Number of students: @item.Students.Count()</p>
+                        }
+                        else
+                        {
+                            <p class="card-title">Number of students: 0</p>
+                        }
+
+                        @if (item.Terms != null && item.Terms.Any())
+                        {
+                            <p class="card-title">Number of terms: @item.Terms.Count()</p>
+                        }
+                        else
+                        {
+                            <p class="card-title mb-0">Number of terms: 0</p>
+                        }
+                    </div>
+                    <div class="card-footer bg-transparent border-primary">
+                        <a class="btn btn-primary" asp-controller="Class" asp-action="EditClass" asp-route-classId="@item.ClassId" role="button">Edit class</a>
+
+                        <a class="btn btn-danger" asp-controller="Class" asp-action="DeleteClass" asp-route-classId="@item.ClassId" role="button">Delete class</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

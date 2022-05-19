@@ -1,0 +1,13 @@
+﻿@model StudentTracker.Model.Student
+
+@{
+    ViewData["Title"] = "Adding a new student";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <partial name="_CreateOrEdit" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿@model StudentTracker.Model.Class
+
+<h4>Edit class</h4>
+<hr/>
+<div class="row">
+    <div class="col-6">
+        <form asp-action="ApplyEditToClass" method="post">
+            <partial name="_CreateOrEdit"/>
+        </form>
+    </div>
+
+    <div class="col-4">
+        <h4>Students in the class</h4>
+        <table id="myTable" class="table table-hover table-striped">
+            <tbody>
+            @foreach (var item in Model.Students)
+            {
+                <tr>
+                    <td id="name">
+                        <a asp-controller="Student" asp-action="Details" asp-route-studentId="@item.StudentId">@item.Student.FullName</a>
+                    </td>
+                    <td>
+                        <button id="remove" type="button" value="@item.Student.StudentId" class="btn btn-danger">Remove student</button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script >
+        let students_to_edit = [];
+
+        /*when user selects a student from the dropdown,
+         * add him to the applied student table and add him to
+         * an array which goes to the backend for db add
+        */
+        $('#addingSelect').on('change', function (e) {
+            if (!students_to_edit.includes($(this).find("option:selected").val())) {
+                students_to_edit.push($(this).find("option:selected").val())
+            } else {
+                students_to_edit.splice(students_to_edit.indexOf($(this).find("option:selected").val()), 1)
+            }
+
+            //Ajax gets the partial view with a tag helper generated link and inserts it into the table
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("StudentLink", "Class")',
+                data: { studentId : $(this).find("option:selected").val() },
+                success: function (html) {
+                    $('#myTable > tbody:last-child').append("<tr><td>" + html + "</td><td><button id='remove' type='button' value='" + $('#addingSelect').find("option:selected").val() + "'class='btn btn-danger'>Remove student</button>")
+                    $('#myTable tr:last-child td:first-child a').text($('#addingSelect').find("option:selected").text())
+                    $('#addingSelect').find("option:selected").remove()
+                }
+            })
+        })
+
+        /*when user deletes a student from the table,
+         * add him to the array and delete on the backend
+        */
+        $('tbody').on("click", "[id = remove]",function () {
+            $("#addingSelect").append($('<option/>', {
+                value: $(this).val(),
+                text: $(this).parent().closest("tr").children().first().text()
+            }))
+
+            if (!students_to_edit.includes($(this).val())) {
+                students_to_edit.push($(this).val())
+            } else {
+                students_to_edit.splice(students_to_edit.indexOf($(this).val()), 1)
+            }
+
+            $(this).closest("tr").remove()
+        })
+
+        $("form").submit(function () {
+            $("#studentsToEditJson").val(JSON.stringify(students_to_edit));
+        })
+    </script >
+}

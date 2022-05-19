@@ -1,0 +1,38 @@
+﻿@using StudentTracker.Model
+@model List<Student>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .tab-pane {
+        padding: 20px;
+    }
+</style>
+
+<h1>Student list</h1>
+<div style="margin-top: 20px; margin-bottom: 10px;">
+    <partial name="_StudentFilter" model="new StudentFilterModel()" />
+</div>
+
+<div id="table-container">
+    <partial name="_IndexTable" />
+</div>
+
+
+@section Scripts{
+    <script>
+		$("button").click(function () {
+            console.log($("form").serialize())
+			$.ajax({
+				url: "@Url.Action("IndexFilter")",
+				method: "POST",
+				data: $("form").serialize(),
+				success: function (html) {
+					$("#table-container").html(html);
+                }
+            })
+        })
+    </script>
+} 

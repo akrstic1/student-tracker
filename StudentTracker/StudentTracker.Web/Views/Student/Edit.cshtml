@@ -1,0 +1,15 @@
+﻿@model StudentTracker.Model.Student
+
+@{
+    ViewData["Title"] = "Editing an existing student";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="StudentId" />
+            fsdfds
+            <partial name="_CreateOrEdit" />
+        </form>
+    </div>
+</div>

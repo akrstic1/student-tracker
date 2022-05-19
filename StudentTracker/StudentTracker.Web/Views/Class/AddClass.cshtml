@@ -1,0 +1,57 @@
+﻿@model StudentTracker.Model.Class
+
+<h4>Add class</h4>
+<hr/>
+
+<div class="row">
+    <div class="col-6">
+        <form asp-action="AddClassPost" method="post">
+            <partial name="_CreateOrEdit"/>
+        </form>
+    </div>
+
+    <div class="col-4">
+        <h4>Students in the class</h4>
+        <table id="myTable" class="table table-hover table-striped">
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        let students_to_edit = [];
+
+        /*when user selects a student from the dropdown,
+         * add him to the applied student table and add him to
+         * an array which goes to the backend for db add
+        */
+        $('#addingSelect').on('change', function (e) {
+            if (!students_to_edit.includes($(this).find("option:selected").val())) {
+                students_to_edit.push($(this).find("option:selected").val())
+            } else {
+                students_to_edit.splice(students_to_edit.indexOf($(this).find("option:selected").val()), 1)
+            }
+
+            $('#myTable > tbody:last-child').append("<tr><td>" + $(this).find("option:selected").text() + "</td><td><button id='remove' type='button' value='" + $(this).find("option:selected").val() + "'class='btn btn-danger'>Remove student</button>");
+            $(this).find("option:selected").remove()
+        })
+
+        /*when user deletes a student from the table,
+         * add him to the array and delete on the backend
+        */
+        $('tbody').on("click", "[id = remove]",function () {
+            $("#addingSelect").append($('<option/>', {
+                value: $(this).val(),
+                text: $(this).parent().closest("tr").children().first().text()
+            }))
+            students_to_edit.push($(this).val())
+            $(this).closest("tr").remove()
+        })
+
+        $("form").submit(function () {
+            $("#studentsToEditJson").val(JSON.stringify(students_to_edit));
+        })
+    </script>
+}

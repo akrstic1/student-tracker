@@ -1,0 +1,34 @@
+﻿@model StudentTracker.Model.Class
+
+<div class="form-group">
+    <label class="control-label">Name</label>
+    <input asp-for="Name" class="form-control"/>
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label class="control-label">Semester</label>
+    <select class="form-select form-control" asp-for="Semester">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select>
+    <span asp-validation-for="Semester" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label class="control-label" for="addingSelect">Add Students</label>
+    <select class="form-control" id="addingSelect" asp-items="ViewBag.PossibleStudents"></select>
+</div>
+<input type="hidden" id="studentsToEditJson" name="studentsToEditJson"/>
+@if (Model != null)
+{
+    <input type="hidden" id="classId" name="classId" value="@Model.ClassId"/>
+}
+else
+{
+    <input type="hidden" asp-for="ProfessorId" value="@ViewBag.professorId"/>
+}
+
+<button type="submit" class="btn btn-outline-info">Save changes</button>

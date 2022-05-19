@@ -1,0 +1,47 @@
+﻿@model StudentTracker.Model.Student
+
+<div>
+    <h4>Student details</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            Student ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+        <dt>
+            Full name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            Address
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            Phone
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            JMBAG
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Jmbag)
+        </dd>
+        <dt>
+            Classes
+        </dt>
+        <dd>
+            @foreach (var item in Model.Classes)
+            {
+                @item.Class.Name<br/>
+            }
+        </dd>
+    </dl>
+</div>

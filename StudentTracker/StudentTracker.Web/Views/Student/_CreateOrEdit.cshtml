@@ -1,0 +1,29 @@
+﻿@model StudentTracker.Model.Student
+
+<div class="form-group">
+    <label class="control-label">Full name</label>
+    <input asp-for="FullName" class="form-control" />
+    <span asp-validation-for="FullName" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Address" class="control-label">Address</label>
+    <input asp-for="Address" class="form-control" />
+    <span asp-validation-for="Address" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label class="control-label">Phone</label>
+    <input asp-for="Phone" class="form-control" />
+    <span asp-validation-for="Phone" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label class="control-label">JMBAG</label>
+    <input asp-for="Jmbag" class="form-control" />
+    <span asp-validation-for="Jmbag" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <input type="submit" value="Spremi" class="btn btn-outline-success" />
+</div>

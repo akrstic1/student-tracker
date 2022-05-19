@@ -1,0 +1,29 @@
+﻿@using StudentTracker.Web.Models
+
+@model StudentFilterModel
+
+<form>
+    <div class="form-row">
+        <div class="col-3">
+            <input asp-for="FullName" class="form-control" type="text" placeholder="Full name" />
+        </div>
+        <div class="col-3">
+            <input asp-for="Address" class="form-control" type="text" placeholder="Address" />
+        </div>
+        <div class="col-2">
+            <input asp-for="Phone" class="form-control" type="text" placeholder="Phone" />
+        </div>
+        <div class="col-2">
+            <input asp-for="Jmbag" class="form-control" type="text" placeholder="Jmbag" />
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-outline-info">Filter</button>
+            <a asp-action="Index" class="btn btn-danger">Reset</a>
+        </div>
+
+    </div>
+    <div class="pt-3">
+        <a asp-action="Create" class="btn btn-success">New student</a>
+    </div>
+    
+</form>
