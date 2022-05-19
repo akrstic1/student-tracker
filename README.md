@@ -1,4 +1,4 @@
-#Student Tracker
+# Student Tracker
 
 ## Building the Database
 
